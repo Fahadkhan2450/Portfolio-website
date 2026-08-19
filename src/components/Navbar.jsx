@@ -1,52 +1,68 @@
 import { motion } from "framer-motion";
-import { Link } from "react-scroll"; 
+import { Link } from "react-scroll";
 
 export default function Navbar() {
   return (
-    <nav className="fixed w-full bg-slate-900/80 backdrop-blur z-50">
+    <nav className="fixed w-full bg-[#F8F4EF]/90 backdrop-blur-md shadow-md z-50 border-b border-[#E8DDD2]">
       <div className="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
 
         {/* Name + Subtitle + Bouncing Ball */}
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
-            <h1 className="text-xl font-bold text-cyan-400">Muhamad Fahad Khan</h1>
+            <h1 className="text-xl font-bold text-[#E76F51]">
+              Muhammad Fahad Khan
+            </h1>
 
             {/* Bouncing Ball */}
             <motion.div
               animate={{ y: [0, -6, 0] }}
-              transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut" }}
-              className="w-3 h-3 rounded-full bg-cyan-400"
+              transition={{
+                repeat: Infinity,
+                duration: 0.6,
+                ease: "easeInOut",
+              }}
+              className="w-3 h-3 rounded-full bg-[#E76F51]"
             />
           </div>
-          <span className="text-gray-300 text-sm">ML & Web Developer</span>
+
+          <h2 className="text-xl font-bold text-gray-700">
+  Data Scientist
+</h2>
         </div>
 
         {/* Navbar Links */}
-        <div className="space-x-6 text-gray-300 flex items-center">
+        <div className="flex items-center space-x-8 font-medium">
+
           <Link
             to="projects"
             smooth={true}
             duration={500}
-            className="hover:text-cyan-400 cursor-pointer transition-colors"
+            className="cursor-pointer text-gray-700 hover:text-[#E76F51] transition duration-300 relative group"
           >
             Projects
+            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#E76F51] transition-all duration-300 group-hover:w-full"></span>
           </Link>
+
           <Link
             to="experience"
             smooth={true}
             duration={500}
-            className="hover:text-cyan-400 cursor-pointer transition-colors"
+            className="cursor-pointer text-gray-700 hover:text-[#E76F51] transition duration-300 relative group"
           >
             Experience
+            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#E76F51] transition-all duration-300 group-hover:w-full"></span>
           </Link>
+
           <Link
             to="skills"
             smooth={true}
             duration={500}
-            className="hover:text-cyan-400 cursor-pointer transition-colors"
+            className="cursor-pointer text-gray-700 hover:text-[#E76F51] transition duration-300 relative group"
           >
             Skills
+            <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-[#E76F51] transition-all duration-300 group-hover:w-full"></span>
           </Link>
+
         </div>
       </div>
     </nav>

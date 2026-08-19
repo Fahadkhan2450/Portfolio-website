@@ -1,7 +1,19 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import projects from "../data/projects";
+
+const CATEGORIES = [
+  { key: "all", label: "All" },
+  { key: "data-analyst", label: "Data Analyst" },
+  { key: "data-engineer", label: "Data Engineer" },
+  { key: "data-science", label: "Data Scientist" },
+  { key: "web", label: "Web Development" },
+];
 
 export default function Projects() {
-  // Variants for staggered drop-down animation
+  const [activeCategory, setActiveCategory] = useState("all");
+
   const containerVariants = {
     hidden: {},
     visible: {
@@ -12,81 +24,153 @@ export default function Projects() {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: {
+      opacity: 0,
+      y: -50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
   };
 
+  const filteredProjects =
+    activeCategory === "all"
+      ? projects
+      : projects.filter(
+          (project) => project.category === activeCategory
+        );
+
+  const internalProjects = [
+    "sql",
+    "retail-dashboard",
+    "car-sales",
+    "pizza-sales",
+  ];
+
   return (
-    <section id="projects" className="py-20 bg-slate-800">
-      <h2 className="text-center text-4xl font-bold text-cyan-400">Projects</h2>
+    <section id="projects" className="py-20 bg-[#F8F4EF]">
+      <div className="max-w-6xl mx-auto px-6">
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto px-6 mt-10"
-      >
-
-        {/* Project 1 */}
-        <motion.div
-          variants={cardVariants}
-          whileHover={{ scale: 1.03 }}
-          className="bg-slate-900 p-6 rounded-xl"
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center text-4xl font-bold text-[#E76F51]"
         >
-          <h3 className="text-xl font-semibold">Autism Prediction System</h3>
-          <p className="text-gray-400 mt-2">
-            Built a machine learning model to predict autism traits using
-            Scikit-Learn algorithms including Logistic Regression, Random Forest,
-            SVM, and K-Nearest Neighbors. Deployed using FastAPI and Docker.
-          </p>
-          <p className="text-cyan-400 mt-2">FastAPI • Docker • Scikit-Learn</p>
+          PROJECTS
+        </motion.h2>
+
+        {/* Category Buttons */}
+        <div className="flex flex-wrap justify-center gap-3 mt-8">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat.key}
+              onClick={() => setActiveCategory(cat.key)}
+              className={`px-5 py-2 rounded-full font-semibold transition-all duration-300 border-2 ${
+                activeCategory === cat.key
+                  ? "bg-[#E76F51] text-white border-[#E76F51]"
+                  : "bg-white text-[#E76F51] border-[#E76F51] hover:bg-[#FDE8E6]"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Projects */}
+        <motion.div
+          key={activeCategory}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid md:grid-cols-2 gap-8 mt-12"
+        >
+          {filteredProjects.map((project) => {
+            const isInternalProject = internalProjects.includes(project.id);
+
+            const Card = (
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-l-4 border-[#E76F51] cursor-pointer h-full flex flex-col">
+
+                {/* Project Image */}
+                {project.images && project.images.length > 0 && (
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-56 object-cover"
+                  />
+                )}
+
+                {/* Card Content */}
+                <div className="p-8 flex flex-col flex-grow">
+
+                  <h3 className="text-2xl font-bold text-gray-800">
+                    {project.title}
+                  </h3>
+
+                  {project.subtitle && (
+                    <p className="text-[#E76F51] mt-2 text-sm font-medium">
+                      {project.subtitle}
+                    </p>
+                  )}
+
+                  <p className="text-gray-600 mt-4 leading-relaxed flex-grow">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.technologies?.slice(0, 5).map((tech) => (
+                      <span
+                        key={tech}
+                        className="bg-[#FDE8E6] text-[#E76F51] px-3 py-1 rounded-full text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-6">
+                    <span className="text-[#E76F51] font-semibold hover:underline">
+                      {isInternalProject
+                        ? "View Project →"
+                        : "View on GitHub ↗"}
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            );
+
+            return (
+              <motion.div
+                key={project.id}
+                variants={cardVariants}
+                whileHover={{ y: -8, scale: 1.02 }}
+              >
+                {isInternalProject ? (
+                  <Link to={`/project/${project.id}`}>
+                    {Card}
+                  </Link>
+                ) : (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {Card}
+                  </a>
+                )}
+              </motion.div>
+            );
+          })}
         </motion.div>
 
-        {/* Project 2 */}
-        <motion.div
-          variants={cardVariants}
-          whileHover={{ scale: 1.03 }}
-          className="bg-slate-900 p-6 rounded-xl"
-        >
-          <h3 className="text-xl font-semibold">Cat vs Dog Image Classification</h3>
-          <p className="text-gray-400 mt-2">
-            Developed a CNN-based image classification model using PyTorch.
-            Implemented convolutional layers, pooling, and fully connected layers
-            to accurately classify cat and dog images.
-          </p>
-          <p className="text-cyan-400 mt-2">PyTorch • CNN • Neural Networks</p>
-        </motion.div>
-
-        {/* Project 3 */}
-        <motion.div
-          variants={cardVariants}
-          whileHover={{ scale: 1.03 }}
-          className="bg-slate-900 p-6 rounded-xl"
-        >
-          <h3 className="text-xl font-semibold">WorkHive – Project Management Platform</h3>
-          <p className="text-gray-400 mt-2">
-            A full-stack project management system allowing teams to create,
-            assign, and track tasks with authentication and real-time updates.
-          </p>
-          <p className="text-cyan-400 mt-2">MongoDB • Express • React • Node</p>
-        </motion.div>
-
-        {/* Project 4 */}
-        <motion.div
-          variants={cardVariants}
-          whileHover={{ scale: 1.03 }}
-          className="bg-slate-900 p-6 rounded-xl"
-        >
-          <h3 className="text-xl font-semibold">Object Detection using YOLOv8</h3>
-          <p className="text-gray-400 mt-2">
-            Built an object detection model using YOLOv8 and OpenCV to detect
-            real-time objects in images and video streams.
-          </p>
-          <p className="text-cyan-400 mt-2">YOLOv8 • OpenCV • Computer Vision</p>
-        </motion.div>
-
-      </motion.div>
+      </div>
     </section>
   );
 }

@@ -2,18 +2,103 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Skills() {
-  const categories = [
-    { title: "Languages", items: ["Python", "JavaScript"] },
-    { title: "Databases", items: ["MongoDB", "PostgreSQL", "Oracle Database", "MySQL"] },
-    { title: "Backend Frameworks", items: ["Express", "Node.js", "JWT"] },
-    { title: "APIs", items: ["RESTful APIs", "FastAPI"] },
-    { title: "Data Analysis & Manipulation", items: ["NumPy", "Pandas", "Scikit-Learn"] },
-    { title: "Machine Learning Algorithms", items: ["Linear Regression", "Logistic Regression", "SVM", "Random Forest", "KNN"] },
-    { title: "Deep Learning", items: ["PyTorch (ANN, CNN)"] },
-    { title: "AI & Computer Vision", items: ["OpenCV", "YOLOv8"] },
-    { title: "LLMs", items: ["LangChain"] },
-    { title: "Tools & Platforms", items: ["Git", "GitHub", "Postman", "Docker"] },
-  ];
+ const categories = [
+  {
+    title: "Data Analyst",
+    items: [
+      "SQL",
+      "Microsoft Excel",
+      "Tableau",
+      "Power BI",
+      "Data Cleaning",
+      "Data Visualization",
+      "Exploratory Data Analysis (EDA)",
+      "Business Intelligence (BI)",
+      "Statistical Analysis",
+      "Dashboard Development",
+      "Data Storytelling",
+      "KPI Analysis"
+    ],
+  },
+
+  {
+    title: "Data Engineer",
+    items: [
+      "SQL Server",
+      "ETL Pipelines",
+      "Data Warehousing",
+      "Medallion Architecture",
+      "Bronze, Silver & Gold Layers",
+      "Star Schema",
+      "Snowflake Schema",
+      "Dimensional Modeling",
+      "Fact & Dimension Tables",
+      "Data Modeling",
+      "Data Integration",
+      "T-SQL"
+    ],
+  },
+
+  {
+    title: "Machine Learning & Deep Learning",
+    items: [
+      "Python",
+      "Matlab",
+      "Scikit-Learn",
+      "NumPy",
+      "Pandas",
+      "PyTorch",
+      "Supervised Learning",
+      "Unsupervised Learning",
+      "Linear Regression",
+      "Logistic Regression",
+      "Decision Trees",
+      "Random Forest",
+      "K-Nearest Neighbors (KNN)",
+      "Support Vector Machine (SVM)",
+      "K-Means Clustering",
+      "Principal Component Analysis (PCA)",
+      "Artificial Neural Networks (ANN)",
+      "Convolutional Neural Networks (CNN)",
+      "Recurrent Neural Networks (RNN)",
+      "Long Short-Term Memory (LSTM)",
+      "Transfer Learning",
+      "OpenCV",
+      "YOLOv8",
+      "Image Classification",
+      "Object Detection",
+      "FastAPI",
+      "LangChain",
+      "LangGraph",
+      "Groq API",
+      "SerpAPI"
+    ],
+  },
+
+  {
+    title: "Databases",
+    items: [
+      "SQL Server",
+      "PostgreSQL",
+      "MongoDB",
+      "MySQL",
+      "Oracle Database"
+    ],
+  },
+
+  {
+    title: "Tools & Technologies",
+    items: [
+      "Git",
+      "GitHub",
+      "Docker",
+      "Postman",
+      "Jupyter Notebook",
+      "Google Colab",
+      "VS Code"
+    ],
+  },
+];
 
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -22,61 +107,63 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-gradient-to-b from-slate-900 to-slate-800">
-      <h2 className="text-center text-4xl font-bold text-cyan-400 mb-10">
-        Skills & Expertise
-      </h2>
+    <section id="skills" className="py-20 bg-[#F8F4EF]">
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className="text-center text-4xl font-bold text-[#E76F51] mb-12">
+          Skills & Expertise
+        </h2>
 
-      <div className="max-w-4xl mx-auto px-6 space-y-4">
-        {categories.map((cat, index) => (
-          <div
-            key={index}
-            className="bg-gradient-to-r from-cyan-900/50 via-blue-900/40 to-purple-900/50
-                       rounded-xl shadow-lg shadow-cyan-900/30 backdrop-blur-md border border-cyan-400/20 overflow-hidden"
-          >
-            {/* Dropdown Header */}
-            <button
-              onClick={() => toggleOpen(index)}
-              className="w-full flex justify-between items-center p-4 cursor-pointer hover:bg-cyan-900/20 transition-colors duration-300"
+        <div className="space-y-5">
+          {categories.map((cat, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-lg border-l-4 border-[#E76F51] overflow-hidden"
             >
-              <span className="text-lg font-semibold text-cyan-400">{cat.title}</span>
-              <motion.span
-                animate={{ rotate: openIndex === index ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="text-gray-300 text-xl"
+              <button
+                onClick={() => toggleOpen(index)}
+                className="w-full flex justify-between items-center p-5 hover:bg-[#FDE8E6] transition duration-300"
               >
-                ▼
-              </motion.span>
-            </button>
+                <span className="text-xl font-semibold text-gray-800">
+                  {cat.title}
+                </span>
 
-            {/* Dropdown Content */}
-            <AnimatePresence>
-              {openIndex === index && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="px-6 pb-4"
+                <motion.span
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-[#E76F51] text-xl"
                 >
-                  <ul className="list-disc list-inside space-y-2">
-                    {cat.items.map((item, i) => (
-                      <motion.li
-                        key={i}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: i * 0.05 }}
-                        className="text-gray-200 hover:text-cyan-400 transition-colors cursor-default"
-                      >
-                        {item}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
+                  ▼
+                </motion.span>
+              </button>
+
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="px-6 pb-6"
+                  >
+                    <div className="flex flex-wrap gap-3">
+                      {cat.items.map((item, i) => (
+                        <motion.span
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.04 }}
+                          className="bg-[#FDE8E6] text-[#E76F51] px-4 py-2 rounded-full text-sm font-medium shadow-sm"
+                        >
+                          {item}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

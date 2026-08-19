@@ -1,11 +1,11 @@
 // src/data/projects.js
 
 // ===== SQL Project Images =====
-import architecture from "../assets/DataWarehouse_structure_and_Flow.drawio.png";
-import dataFlow from "../assets/Data_flow.drawio.png";
-import integrationModel from "../assets/integration_Model.drawio.png";
-import silverLayer from "../assets/Silver Layer .drawio.png";
-import starSchema from "../assets/star_schema.drawio.png";
+import architecture from "../assets/DataWarehouse_structure_and_Flow.png";
+import dataFlow from "../assets/Data_flow.png";
+import integrationModel from "../assets/integration_Model.png";
+import silverLayer from "../assets/Silver Layer .png";
+import starSchema from "../assets/star_schema.png";
 import retailSales from "../assets/Retail_Sales.jpeg";
 import retailCustomer from "../assets/Retail_Cust.jpeg";
 import Retail_Data_Source from "../assets/Retail_Data_Source.jpeg";

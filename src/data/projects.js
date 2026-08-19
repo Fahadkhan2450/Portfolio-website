@@ -5,7 +5,7 @@ import architecture from "../assets/DataWarehouse_structure_and_Flow.png";
 import dataFlow from "../assets/Data_flow.png";
 import integrationModel from "../assets/integration_Model.png";
 import silverLayer from "../assets/Silver Layer.png";
-import starSchema from "../assets/star_schema.png";
+import starSchema from "../assets/Star_Schema.png";
 import retailSales from "../assets/Retail_Sales.jpeg";
 import retailCustomer from "../assets/Retail_Cust.jpeg";
 import Retail_Data_Source from "../assets/Retail_Data_Source.jpeg";
